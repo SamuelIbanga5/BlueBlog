@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block logged_in_nav %}
+{% if not hasBlog %}
+
+<li><a href={% url 'blog-settings' %}>Create New Blog</a></li>
+
+{% else %}
+
+<li><a href={% url 'update-blog-settings' blog.id %}>Edit Blog Settings</a></li>
+<li><a href={% url 'new-blog-post' %}>Create New Blog Post</a></li>
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1>HomePage</h1>
+<h3>Hello {{request.user}}</h3>
+
+{% for blogpost in blogPosts %}
+<ul>
+    <li><a href={% url 'blog-post-detail' blogpost.id %}>{{blogpost}}</a></li> | <a href={% url 'update-blog-post' blogpost.id %}>Edit Post</a>
+</ul>
+{% endfor %}
+{% endblock %}
